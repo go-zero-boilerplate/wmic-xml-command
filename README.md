@@ -15,6 +15,20 @@ import (
 )
 
 func main() {
+    prodID := 123 //The process id you want to get its children for
+
+    columnNames := []string{
+        "ProcessId",
+    }
+
+    wmicArgs := []string{
+        "process",
+        "where",
+        fmt.Sprintf("(ParentProcessId=%d)", prodID),
+        "get",
+        strings.Join(columnNames, ","),
+    }
+
     responseXml, err := wmic_command.Run(wmicArgs)
     if err != nil {
         log.Fatal(err)

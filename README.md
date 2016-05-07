@@ -9,22 +9,25 @@ Install with `go get -u go-zero-boilerplate/wmic-xml-command`
 package main
 
 import (
-    "log"
     "fmt"
+    "log"
+    "strings"
+
     wmic_command "github.com/go-zero-boilerplate/wmic-xml-command"
 )
 
 func main() {
-    prodID := 123 //The process id you want to get its children for
+    prodID := 123 //Choose any currently running process
 
     columnNames := []string{
+        "Caption",
         "ProcessId",
     }
 
     wmicArgs := []string{
         "process",
         "where",
-        fmt.Sprintf("(ParentProcessId=%d)", prodID),
+        fmt.Sprintf("(ProcessId=%d)", prodID),
         "get",
         strings.Join(columnNames, ","),
     }
